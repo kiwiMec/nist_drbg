@@ -8,13 +8,19 @@ This repository is only for personal investigation into the DRBG space. It's jus
 
 I intend to implement the pseudo algorithms in such a way that they will be immediately recognisable to the reader of the code familiar with the standard. Basically I'm just curious as to how well pseudo code in standards translates to real code. A consequence is that the code should work. But I'm not fussed if it actually accomplishes the objectives of the standard.
 
-The following is my interpretation of the architecture of the drbg mechanism.
+The following is my interpretation of the architecture of the drbg mechanism as described in **800-90A r1**.
 
 ![basic architecture](/nist%20drbg%20-%20data%20flow.png)
 
 * Arrows represent primary data flow.
 * Light blue boxes represent mechanism functions.
 * Light blue cylinders show mechanism storage.
+
+**800-90A r1** r1 primarily covers the drbg mechanism itself. It does refer to the other two associated standards. This is the standard I'm most interested in.
+
+**800-90B** concerns itself with the entropy source. I'm not too interested in this as implementations vary wildly.
+
+**800-90C public draft 3** details various crypto algorithms and details that could be used in random number generation. I'll probably just stick to something from **800-90A r1**.
 
 # References
 
