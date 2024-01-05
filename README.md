@@ -23,4 +23,3 @@ The following references are links to the standards followed by links to comment
 * [**NIST IR 8427** Discussion on the Full Entropy Assumption of the SP 800-90 Series](https://nvlpubs.nist.gov/nistpubs/ir/2023/NIST.IR.8427.pdf)
 * [An Analysis of the NIST SP 800-90A Standard](https://eprint.iacr.org/2018/349.pdf)
 * [A Security Analysis of the NIST SP 800-90 Elliptic Curve Random Number Generator](https://eprint.iacr.org/2007/048.pdf)
-
