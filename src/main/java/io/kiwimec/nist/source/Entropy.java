@@ -1,14 +1,14 @@
-package io.kiwimec.nist.drbg;
+package io.kiwimec.nist.source;
 
 import io.kiwimec.util.Status;
 import io.kiwimec.util.Tuple2;
 
-public class EntropySource {
+public class Entropy {
 
         public final int highest_supported_security_strength;
         public final int max_personalization_string_length;    
 
-        public EntropySource() {
+        public Entropy() {
                 highest_supported_security_strength = 256;
                 max_personalization_string_length = 256;
         }

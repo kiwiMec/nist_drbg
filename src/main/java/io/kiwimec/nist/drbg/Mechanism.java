@@ -1,20 +1,22 @@
 package io.kiwimec.nist.drbg;
 
+import io.kiwimec.nist.source.Entropy;
+import io.kiwimec.nist.source.Nonce;
 import io.kiwimec.util.Status;
 import io.kiwimec.util.Tuple2;
 
 public class Mechanism {
 
     // components
-    private EntropySource entropy_source;
-    private NonceSource nonce_source;
-    private DrbgAlgorithm drbg_algorithm;
-    private DrbgAlgorithm internal_state;
+    private Entropy entropy_source;
+    private Nonce nonce_source;
+    private Algorithm drbg_algorithm;
+    private Algorithm internal_state;
 
     private int security_strength;
 
-    public Mechanism(EntropySource entropy_source, NonceSource nonce_source, 
-            DrbgAlgorithm drbg_algorithm) {
+    public Mechanism(Entropy entropy_source, Nonce nonce_source, 
+            Algorithm drbg_algorithm) {
 
         this.entropy_source = entropy_source;
         this.nonce_source = nonce_source;
@@ -24,6 +26,8 @@ public class Mechanism {
         // TODO: add health check
     }
     
+    // p.12 The instantiate function acquires entropy input and may combine it with a nonce and a 
+    // personalization string to create a seed from which the initial internal state is created.
     public Tuple2<Status, String> Instantiate(
         int requested_instantiation_security_strength, 
         boolean prediction_resistance_flag, 
@@ -63,9 +67,9 @@ public class Mechanism {
         // 6. (status, entropy_input) = Get_entropy_input (security_strength, min_length, 
         // max_length, prediction_resistance_request).
         Tuple2<Status, byte[]> entropy_input = entropy_source.Get_entropy_input(
-            requested_instantiation_security_strength, 
-            requested_instantiation_security_strength, 
-            requested_instantiation_security_strength, 
+            security_strength, 
+            security_strength, 
+            security_strength, 
             prediction_resistance_flag);
 
         // 7. If (status ≠ SUCCESS), return (status, Invalid).
@@ -80,7 +84,7 @@ public class Mechanism {
 
         // 9. initial_working_state = Instantiate_algorithm (entropy_input, nonce, 
         // personalization_string, security_strength).
-        DrbgAlgorithm initial_working_state = drbg_algorithm.Instantiate_algorithm(entropy_input.second, nonce, 
+        Algorithm initial_working_state = drbg_algorithm.Instantiate_algorithm(entropy_input.second, nonce, 
             personalization_string, security_strength);
 
         // 10. Get a state_handle for a currently empty internal state. If an empty internal 
