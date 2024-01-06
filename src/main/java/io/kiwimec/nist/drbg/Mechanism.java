@@ -11,7 +11,7 @@ public class Mechanism {
     private Entropy entropy_source;
     private Nonce nonce_source;
     private Algorithm drbg_algorithm;
-    private Algorithm internal_state;
+    private State internal_state;
 
     private int security_strength;
 
@@ -29,9 +29,9 @@ public class Mechanism {
     // p.12 The instantiate function acquires entropy input and may combine it with a nonce and a 
     // personalization string to create a seed from which the initial internal state is created.
     public Tuple2<Status, String> Instantiate(
-        int requested_instantiation_security_strength, 
-        boolean prediction_resistance_flag, 
-        String personalization_string) {
+            int requested_instantiation_security_strength, 
+            boolean prediction_resistance_flag, 
+            String personalization_string) {
 
         // Comment: Check the validity of the input parameters.
 
@@ -42,7 +42,7 @@ public class Mechanism {
             return new Tuple2<Status,String>(Status.ERROR_FLAG, "Invalid");
         // 2. If prediction_resistance_flag is set, and prediction resistance is not supported, 
         // then return (ERROR_FLAG, Invalid).
-        if (prediction_resistance_flag == true)
+        if (prediction_resistance_flag && !drbg_algorithm.prediction_resistance_flag)
             return new Tuple2<Status,String>(Status.ERROR_FLAG, "Invalid");
         // 3. If the length of the personalization_string > max_personalization_string_length, 
         // return (ERROR_FLAG, Invalid).
@@ -74,7 +74,7 @@ public class Mechanism {
 
         // 7. If (status ≠ SUCCESS), return (status, Invalid).
         if(entropy_input.first != Status.SUCCESS)
-            return new Tuple2<Status, String>(Status.ERROR_FLAG, "Invalid");
+            return new Tuple2<Status, String>(entropy_input.first, "Invalid");
 
         // 8. Obtain a nonce. Comment: This step shall include any appropriate checks on the 
         // acceptability of the nonce. See Section 8.6.7.
@@ -84,7 +84,7 @@ public class Mechanism {
 
         // 9. initial_working_state = Instantiate_algorithm (entropy_input, nonce, 
         // personalization_string, security_strength).
-        Algorithm initial_working_state = drbg_algorithm.Instantiate_algorithm(entropy_input.second, nonce, 
+        State initial_working_state = drbg_algorithm.Instantiate_algorithm(entropy_input.second, nonce, 
             personalization_string, security_strength);
 
         // 10. Get a state_handle for a currently empty internal state. If an empty internal 
@@ -102,5 +102,65 @@ public class Mechanism {
 
         // 12. Return (SUCCESS, state_handle).
         return new Tuple2<Status,String>(Status.SUCCESS, internal_state.handle);
+    }
+
+    public Status Reseed_function (String state_handle, boolean prediction_resistance_request, 
+            String additional_input) {
+
+        // 1. Using state_handle, obtain the current internal state. If state_handle indicates an 
+        // invalid or unused internal state, return (ERROR_FLAG).
+        //
+        // NOTE a. This state management makes sense in a context where multiple states may 
+        // be maintained by a single object. See steps 6. and 7. for use. 
+        //
+        // NOTE b. No consideration is given to thread, data or memory safety in the specification. 
+        // Quite rightly this is left to the implementer to consider given that this is a generic 
+        // specification and such things are implementation context dependent and therefore 
+        // unbounded in scope. As long as the state get and set are atomic and get creates a copy 
+        // of the state reseeding could be done in parallel with generation with minimal 
+        // interruption to generation in some circumstances. Here I just use a single state.
+        if(internal_state.handle != state_handle)
+                return Status.ERROR_FLAG;
+        State working_state = internal_state;
+
+        // 2. If prediction_resistance_request is set, and prediction_resistance_flag is not set, 
+        // then return (ERROR_FLAG).
+        if(prediction_resistance_request && !drbg_algorithm.prediction_resistance_flag)
+            return Status.ERROR_FLAG;
+
+        // 3. If the length of the additional_input > max_additional_input_length, 
+        // return (ERROR_FLAG).
+        if(additional_input.length() > drbg_algorithm.max_additional_input_length)
+            return Status.ERROR_FLAG;
+
+        // Comment: Obtain the entropy input.
+        // 4. (status, entropy_input) = Get_entropy_input (security_strength, min_length,
+        // max_length, prediction_resistance_request).
+        Tuple2<Status, byte[]> entropy_input = entropy_source.Get_entropy_input(
+            security_strength, 
+            security_strength, 
+            security_strength, 
+            prediction_resistance_request);
+
+        // Comment: status indications other than SUCCESS could be ERROR_FLAG or 
+        // CATASTROPHIC_ERROR_FLAG, in which case, the status is returned to the consuming 
+        // application to handle. The Get_entropy_input call could return a status of ERROR_FLAG 
+        // to indicate that entropy is currently unavailable, and could return 
+        // CATASTROPHIC_ERROR_FLAG to indicate that an entropy source failed.
+        // 5. If (status ≠ SUCCESS), return (status).
+        if(entropy_input.first != Status.SUCCESS)
+            return entropy_input.first;
+
+        // Comment: Get the new working_state using the appropriate reseed algorithm in Section 10.
+        // 6. new_working_state = Reseed_algorithm (working_state, entropy_input, additional_input).
+        Algorithm new_working_state = drbg_algorithm.Reseed_algorithm(
+            working_state, entropy_input.second, additional_input);
+
+        // 7. Replace the working_state in the internal state for the DRBG instantiation (e.g., as
+        // indicated by state_handle) with the values of new_working_state obtained in step 6. 
+        internal_state = new_working_state;
+
+        // 8. Return (SUCCESS).
+        return Status.SUCCESS;
     }
 }
