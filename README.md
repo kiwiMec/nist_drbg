@@ -2,7 +2,7 @@
 An exploration of a DRBG based on the NIST 800-90 specification.
 
 >**Note**
-This repository is only for personal investigation into the DRBG space. It's just an experiment to see how close to the standard's psuedo code I can get. Please feel free to read and learn with me but don't use this in any production setting.
+This repository is only for personal investigation into the DRBG space. It's just an experiment to see how close to the standard's psuedo code I can get. So things like naming might look awkward and strange. Please feel free to read and learn with me but don't use this in any production setting. I wouldn't.
 
 # Approach
 
@@ -16,7 +16,7 @@ The following is my interpretation of the architecture of the drbg mechanism as 
 * Light blue boxes represent mechanism functions.
 * Light blue cylinders show mechanism storage.
 
-**800-90A r1** r1 primarily covers the drbg mechanism itself. It does refer to the other two associated standards. This is the standard I'm most interested in.
+**800-90A r1** primarily covers the drbg mechanism itself. It does refer to the other two associated standards. This is the standard I'm most interested in.
 
 **800-90B** concerns itself with the entropy source. I'm not too interested in this as implementations vary wildly.
 
@@ -37,3 +37,4 @@ The following references are links to the standards followed by links to comment
 * [**NIST IR 8427** Discussion on the Full Entropy Assumption of the SP 800-90 Series](https://nvlpubs.nist.gov/nistpubs/ir/2023/NIST.IR.8427.pdf)
 * [An Analysis of the NIST SP 800-90A Standard](https://eprint.iacr.org/2018/349.pdf)
 * [A Security Analysis of the NIST SP 800-90 Elliptic Curve Random Number Generator](https://eprint.iacr.org/2007/048.pdf)
+* [An interesting article on alternatives to DRBG.](https://tersesystems.com/blog/2015/12/17/the-right-way-to-use-securerandom/)
