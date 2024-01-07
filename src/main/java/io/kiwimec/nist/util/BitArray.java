@@ -1,4 +1,4 @@
-package io.kiwimec.util;
+package io.kiwimec.nist.util;
 
 // Interesting bit class, compare BitSet
 class BitArray {

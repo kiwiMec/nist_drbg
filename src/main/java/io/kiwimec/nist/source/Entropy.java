@@ -1,7 +1,7 @@
 package io.kiwimec.nist.source;
 
-import io.kiwimec.util.Status;
-import io.kiwimec.util.Tuple2;
+import io.kiwimec.nist.util.Status;
+import io.kiwimec.nist.util.Tuple2;
 
 public class Entropy {
 

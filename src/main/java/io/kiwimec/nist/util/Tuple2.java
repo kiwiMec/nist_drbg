@@ -1,4 +1,4 @@
-package io.kiwimec.util;
+package io.kiwimec.nist.util;
 
 public class Tuple2<K, V> {
 
