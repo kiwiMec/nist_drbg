@@ -217,10 +217,9 @@ public class Mechanism {
             boolean prediction_resistance_request, String additional_input) {
 
         // NOTE: This function required a few locals for control logic and scoping. I
-        // only get
-        // away with masking by reference because of the simplicity of this
-        // investigation's scope.
-        // In a production implementation more care would need to be taken.
+        // only get away with masking by reference because of the simplicity of this
+        // investigation's scope. In a production implementation more care would need to
+        // be taken.
         String working_additional_input = additional_input;
         boolean working_prediction_resistance_request = prediction_resistance_request;
         boolean entropy_has_not_been_generated = true;
@@ -305,15 +304,14 @@ public class Mechanism {
                 return new Tuple2<Status, byte[]>(generated.first, null);
 
             // 9. If status indicates that a reseed is required before the requested bits
-            // can be generated, then
+            // can be generated, then:
             if (generated.first == Status.RESEED_REQUIRED) {
 
                 // 9.1 Set the reseed_required_flag.
                 working_state.reseed_required_flag = true;
 
                 // 9.2 If the prediction_resistance_flag is set, then set the
-                // prediction_resistance
-                // request indication.
+                // prediction_resistance request indication.
                 if (working_state.prediction_resistance_flag)
                     working_prediction_resistance_request = true;
 

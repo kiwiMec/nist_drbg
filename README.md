@@ -31,6 +31,7 @@ The following references are links to the standards followed by links to comment
 * [**NIST 800-90A r1** Recommendation for Random Number Generation Using Deterministic Random Bit Generators](https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-90Ar1.pdf)
 * [**NIST 800-90B** Recommendation for the Entropy Sources Used for Random Bit Generation](https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-90B.pdf)
 * [**NIST 800-90C public draft 3** Recommendation for Random Bit Generator (RBG) Constructions ](https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-90C.3pd.pdf)
+* [**Cryptographic Standards and Guidelines** Examples with Intermediate Values: Random Number Generation](https://csrc.nist.gov/projects/cryptographic-standards-and-guidelines/example-values)
 
 ## Commentary
 
@@ -38,3 +39,4 @@ The following references are links to the standards followed by links to comment
 * [An Analysis of the NIST SP 800-90A Standard](https://eprint.iacr.org/2018/349.pdf)
 * [A Security Analysis of the NIST SP 800-90 Elliptic Curve Random Number Generator](https://eprint.iacr.org/2007/048.pdf)
 * [An interesting article on alternatives to DRBG.](https://tersesystems.com/blog/2015/12/17/the-right-way-to-use-securerandom/)
+* [A great read on random number generation; Practical Cryptography for Developers: Pseudo-Random Numbers - Examples](https://cryptobook.nakov.com/secure-random-generators/pseudo-random-numbers-examples)
