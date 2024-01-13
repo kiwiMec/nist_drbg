@@ -50,7 +50,7 @@ public abstract class Algorithm {
      * @param additional_input
      * @return
      */
-    public abstract Algorithm Reseed_algorithm(
+    public abstract State Reseed_algorithm(
             State internal_state, byte[] entropy_input, String additional_input);
 
     /**

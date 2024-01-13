@@ -6,7 +6,7 @@ import io.kiwimec.nist.util.Status;
 import io.kiwimec.nist.util.Tuple2;
 import io.kiwimec.nist.util.Tuple3;
 
-public class Mechanism {
+public final class Mechanism {
 
     // Components need to be final to make instantiation unbreakable.
     private final Entropy entropy_source;
@@ -42,7 +42,7 @@ public class Mechanism {
      * @param personalization_string
      * @return
      */
-    public Tuple2<Status, String> Instantiate_function(
+    public final Tuple2<Status, String> Instantiate_function(
             int requested_instantiation_security_strength, boolean prediction_resistance_flag,
             String personalization_string) {
 
@@ -136,7 +136,7 @@ public class Mechanism {
      * @param additional_input
      * @return
      */
-    public Status Reseed_function(String state_handle, boolean prediction_resistance_request,
+    public final Status Reseed_function(String state_handle, boolean prediction_resistance_request,
             String additional_input) {
 
         // 1. Using state_handle, obtain the current internal state. If state_handle
@@ -189,7 +189,7 @@ public class Mechanism {
         // Section 10.
         // 6. new_working_state = Reseed_algorithm (working_state, entropy_input,
         // additional_input).
-        Algorithm new_working_state = drbg_algorithm.Reseed_algorithm(
+        State new_working_state = drbg_algorithm.Reseed_algorithm(
                 working_state, entropy_input.second, additional_input);
 
         // 7. Replace the working_state in the internal state for the DRBG instantiation
@@ -212,7 +212,7 @@ public class Mechanism {
      * @param additional_input
      * @return
      */
-    public Tuple2<Status, byte[]> Generate_function(String state_handle,
+    public final Tuple2<Status, byte[]> Generate_function(String state_handle,
             int requested_number_of_bits, int requested_security_strength,
             boolean prediction_resistance_request, String additional_input) {
 
@@ -340,7 +340,7 @@ public class Mechanism {
      * @param state_handle
      * @return
      */
-    public Status Uninstantiate_function(String state_handle) {
+    public final Status Uninstantiate_function(String state_handle) {
 
         // 1. If state_handle indicates an invalid state, then return (ERROR_FLAG).
         if (state_handle != internal_state.handle)
