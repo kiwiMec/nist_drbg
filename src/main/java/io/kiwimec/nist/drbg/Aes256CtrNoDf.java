@@ -56,12 +56,7 @@ public class Aes256CtrNoDf extends Algorithm {
      */
     public Aes256CtrNoDf(boolean prediction_resistance_flag) {
 
-        super(
-                256,
-                384,
-                32256,
-                384,
-                true);
+        super(256, 384, 32256, 384, true);
     }
 
     @Override
