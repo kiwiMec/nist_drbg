@@ -31,6 +31,8 @@ The following references are links to the standards followed by links to comment
 * [**NIST 800-90A r1** Recommendation for Random Number Generation Using Deterministic Random Bit Generators](https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-90Ar1.pdf)
 * [**NIST 800-90B** Recommendation for the Entropy Sources Used for Random Bit Generation](https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-90B.pdf)
 * [**NIST 800-90C public draft 3** Recommendation for Random Bit Generator (RBG) Constructions ](https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-90C.3pd.pdf)
+* [**NIST 800-57 Part 1 Revision 5** Recommendation for
+Key Management: Part 1 – General](https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-57pt1r5.pdf)
 * [**Cryptographic Standards and Guidelines** Examples with Intermediate Values: Random Number Generation](https://csrc.nist.gov/projects/cryptographic-standards-and-guidelines/example-values)
 
 ## Commentary
