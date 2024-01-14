@@ -7,7 +7,7 @@ import io.kiwimec.nist.util.Tuple3;
 
 public class Aes256CtrNoDf extends Algorithm {
 
-    // Algorithm configuration.
+    // ----- Algorithm configuration.
 
     // Input and output block length. Also inlen and outlen.
     private final int blocklen = 128;
@@ -43,7 +43,7 @@ public class Aes256CtrNoDf extends Algorithm {
     // Maximum number of requests between reseeds (2^48).
     private final int reseed_interval = 48;
 
-    // Working state.
+    // ----- Working state.
 
     private BitSet V = new BitSet(256);
     private BitSet Key = new BitSet(1024);
