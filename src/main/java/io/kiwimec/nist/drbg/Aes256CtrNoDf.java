@@ -3,6 +3,7 @@ package io.kiwimec.nist.drbg;
 import java.util.BitSet;
 
 import io.kiwimec.nist.util.Status;
+import io.kiwimec.nist.util.Tuple2;
 import io.kiwimec.nist.util.Tuple3;
 
 public class Aes256CtrNoDf extends Algorithm {
@@ -13,7 +14,7 @@ public class Aes256CtrNoDf extends Algorithm {
     private final int blocklen = 128;
 
     // Counter field length.
-    private final int ctr_len = blocklen;
+    private final int ctr_len = blocklen - 1;
 
     // Key length.
     private final int keylen = 256;
@@ -59,6 +60,8 @@ public class Aes256CtrNoDf extends Algorithm {
         super(256, 384, 32256, 384, true);
     }
 
+    // ----- Abstract Algorithm implementation.
+
     @Override
     public State Instantiate_algorithm(byte[] entropy_input, String nonce, String personalization_string,
             int security_strength) {
@@ -79,4 +82,49 @@ public class Aes256CtrNoDf extends Algorithm {
         throw new UnsupportedOperationException("Unimplemented method 'Generate_algorithm'");
     }
 
+    // ----- Local implementation
+
+    /**
+     * Updates the internal state of the CTR_DRBG using the provided_data.
+     * 
+     * @param provided_data
+     * @param Key
+     * @param V
+     * @return
+     */
+    private Tuple2<BitSet, BitSet> CTR_DRBG_Update(BitSet provided_data, BitSet Key, BitSet V) {
+
+        // 1. temp = Null.
+        BitSet temp = new BitSet();
+
+        // 2. While (len (temp) < seedlen) do
+        while (temp.length() < seedlen) {
+
+            // 2.1 If ctr_len < blocklen
+            if (ctr_len < blocklen) {
+
+                // 2.1.1 inc = (rightmost (V, ctr_len) + 1) mod 2ctr_len.
+                BitSet inc = V.get(ctr_len, V.size() - 1);
+
+                // 2.1.2 V = leftmost (V, blocklen-ctr_len) || inc.
+            }
+
+            // Else V = (V+1) mod 2blocklen.
+
+            // 2.2 output_block = Block_Encrypt (Key, V).
+
+            // 2.3 temp = temp || output_block.
+        }
+
+        // 3. temp = leftmost (temp, seedlen).
+
+        // 4 temp = temp ⊕ provided_data.
+
+        // 5. Key = leftmost (temp, keylen).
+
+        // 6. V = rightmost (temp, blocklen).
+
+        // 7. Return (Key, V).
+        return new Tuple2<BitSet, BitSet>(Key, V);
+    }
 }

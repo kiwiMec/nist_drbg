@@ -10,16 +10,14 @@ public class Entropy {
         private final SecureRandom random = new SecureRandom();
 
         // (status, entropy_input) = Get_entropy_input (security_strength, min_length,
-        // max_length,
-        // prediction_resistance_request).
+        // max_length, prediction_resistance_request).
         //
         // Comment: status indications other than SUCCESS could be ERROR_FLAG or
         // CATASTROPHIC_ERROR_FLAG, in which case, the status is returned to the
-        // consuming
-        // application to handle. The Get_entropy_input call could return a status of
-        // ERROR_FLAG to indicate that entropy is currently unavailable, and could
-        // return
-        // CATASTROPHIC_ERROR_FLAG to indicate that an entropy source failed.
+        // consuming application to handle. The Get_entropy_input call could return a
+        // status of ERROR_FLAG to indicate that entropy is currently unavailable, and
+        // could return CATASTROPHIC_ERROR_FLAG to indicate that an entropy source
+        // failed.
         public Tuple2<Status, byte[]> Get_entropy_input(
                         int requested_instantiation_security_strength,
                         int min_length,

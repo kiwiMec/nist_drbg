@@ -42,3 +42,4 @@ Key Management: Part 1 – General](https://nvlpubs.nist.gov/nistpubs/SpecialPub
 * [A Security Analysis of the NIST SP 800-90 Elliptic Curve Random Number Generator](https://eprint.iacr.org/2007/048.pdf)
 * [An interesting article on alternatives to DRBG.](https://tersesystems.com/blog/2015/12/17/the-right-way-to-use-securerandom/)
 * [A great read on random number generation; Practical Cryptography for Developers: Pseudo-Random Numbers - Examples](https://cryptobook.nakov.com/secure-random-generators/pseudo-random-numbers-examples)
+* [How all random number generators should be, IMHO](https://blog.cloudflare.com/lavarand-in-production-the-nitty-gritty-technical-details)
